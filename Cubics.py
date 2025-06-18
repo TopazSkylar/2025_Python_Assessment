@@ -51,7 +51,7 @@ def show_instructions():
     print()
     make_statement("Instructions", "ℹ️")
     print('''
-This is a cubic calculator, you will be prompted to enter the values of a, b, c and d
+This is a cubic calculator, you will be prompted to enter integers as values of a, b, c and d
 This will correspond to the x^3, x^2, x and constant value of the cubic 
 This calculator will not be able to calculate complex roots
 This calculator is intended to walk the user through the steps to solve these cubics 
@@ -105,23 +105,24 @@ def quad_solver(x, y, z):
     # checks if the quadratic is able to be calculated
     if discriminant < 0:
         print(f"""
-            Calculating the discriminant of ({y})^2-4({x})({z}) is less than zero,
-            thus this equation has complex roots, and is unable to be solved using this 
-            calculator
+Calculating the discriminant of ({y})^2-4({x})({z}) is less than zero,
+thus this equation has complex roots, and is unable to be solved using this 
+calculator
                         """)
         return
     if discriminant == 0:
         print(f"""
-            The discriminant of ({y})^2-4({x})({z}) equals zero, meaning that this a perfect
-            square with the same two roots""")
+The discriminant of ({y})^2-4({x})({z}) equals zero, meaning that this a perfect
+square with the same two roots
+                        """)
     else:
         print(f"""
-            The discriminant of ({y})^2-4({x})({z}) is greater than zero, meaning that there
-            are two real unequal roots
+The discriminant of ({y})^2-4({x})({z}) is greater than zero, meaning that there
+are two real unequal roots
                         """)
 
 
-    # more formatting fo prettiness
+    # more formatting for prettiness
     root_1 = negative_result / -1
     if root_1 < 0:
         final_1 = f"x{root_1}"
@@ -238,7 +239,8 @@ def find_equation():
             return
 
         real_roots(a,d)
-
+        # for items in the lists of real roots, insert them into the equation - both negative and positive
+        # keep those whose insertion = 0
         for i in rr_final:
             value = a * i ** 3 + b * i ** 2 + c * i + d
             if value == 0:
@@ -250,7 +252,7 @@ def find_equation():
                 rr_count.append(ite)
 
 
-            # number of real rational roots found
+        # number of real rational roots found
         if len(rr_count) >= 3:
             print("This cubic does not have complex roots and can be solved using this calculator")
         else:
@@ -285,7 +287,6 @@ def find_equation():
                     if a * i ** 3 + b * i ** 2 + c * i + d == 0:
                         root_1 = i
 
-        # if a * root_1 ** 3 + b * root_1 ** 2 + c * root_1 + d ==
 
         # explains to the user how to come to the first factor
         print(f"through substituting until equation = 0, {root_1:.2f} is applicable as a factor ")
@@ -335,6 +336,7 @@ def find_equation():
 
         print()
         to_continue()
+        # Step-by-step walkthrough on how to make the table to get a quadratc for the final 2 roots
         print("Step 3. Lay out a table like the following ")
         print(base_table)
         print()
@@ -344,8 +346,8 @@ def find_equation():
         print()
         to_continue()
         print(f"""
-        Step 5. Take your x^2 constant to the next column across and add to it the product of "
-        your previous result and the factor (e.g {a}x{root_1})
+Step 5. Take your x^2 constant to the next column across and add to it the product of
+your previous result and the factor (e.g {a}x{root_1})
         """)
         print(calc_table_x)
         print()
@@ -368,7 +370,7 @@ def find_equation():
         print()
         to_continue()
         print()
-
+        # correct formatting
         root_2 = negative_result / -1
         if root_2 < 0:
             final_1 = f"x{root_2:.2f}"
