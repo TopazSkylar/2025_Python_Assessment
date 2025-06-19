@@ -1,6 +1,5 @@
 from prettytable import PrettyTable
 
-
 # Lists
 factors_list = []
 rr_raw = []
@@ -85,7 +84,7 @@ def format_term(co, variable):
 
 
 def format_equation(a, b, c, d):
-    """Makes things pretty in terms of the x values"""
+    """Correct formatting in the cubic """
     eq = f"{a}x^3"
     eq += format_term(b, "x^2")
     eq += format_term(c, "x")
@@ -93,12 +92,14 @@ def format_equation(a, b, c, d):
     return eq
 
 def format_equation_quad(a, b, c):
+    """Formats correct signage in the quad"""
     eq = f"{a}x^2"
     eq += format_term(b, "x")
     eq += format_term(c, "")
     return eq
 
 def quad_solver(x, y, z):
+    """Quad calc condensed into one function"""
     discriminant = y ** 2 - 4 * x * z
     negative_result = (-y - (y ** 2 - 4 * x * z) ** 0.5) / (2 * x)
     positive_result = (-y + (y ** 2 - 4 * x * z) ** 0.5) / (2 * x)
@@ -141,6 +142,7 @@ are two real unequal roots
     print()
     make_statement(f"{final_2}", "*")
     print()
+    # will always be (x+0) because it is a quad and this would be 0
     make_statement(f"x+0", "*")
     print()
 
@@ -220,9 +222,10 @@ def find_equation():
 
     else:
         to_continue()
-
+        # shows the user what to how to solve the quadratic equation and formats them correctly
         eq2 = format_equation_quad(b, c, d)
         eq3 = format_equation_quad(a, b, c)
+        # if a = 0 make quad
         if a == 0:
             print("Due to the a value being 0, the equation becomes a quadratic")
             print()
@@ -230,6 +233,7 @@ def find_equation():
             to_continue()
             quad_solver(b,c,d)
             return
+        # if d = 0 make quad
         if d == 0:
             print("Due to the d value being 0, you are able to factorise out x, and simply make it a quadratic")
             print()
@@ -336,7 +340,7 @@ def find_equation():
 
         print()
         to_continue()
-        # Step-by-step walkthrough on how to make the table to get a quadratc for the final 2 roots
+        # Step-by-step walkthrough on how to make the table to get a quadratic for the final 2 roots
         print("Step 3. Lay out a table like the following ")
         print(base_table)
         print()
@@ -382,7 +386,7 @@ your previous result and the factor (e.g {a}x{root_1})
             final_2 = f"x{root_3:.2f}"
         else:
             final_2 = f"x+{root_3:.2f}"
-
+        # displays all of the roots after solving
         print("\rThus, your roots for this cubic are; ")
         print()
         make_statement(f"{display}", "*")
@@ -408,26 +412,22 @@ your previous result and the factor (e.g {a}x{root_1})
 # main routine goes here
 
 make_statement("Cubic calculator", "-")
+# instructions asker
+instructions = yes_no("Do you want to read the instructions? ")
+if instructions == "yes":
+    show_instructions()
 
 keep_going = ""
 while keep_going == "":
-    # instructions asker
-    instructions = yes_no("Do you want to read the instructions? ")
-    if instructions == "yes":
-        show_instructions()
-
     find_equation()
-
     print()
+
     again = yes_no("Do you wish to solve another Cubic? ")
     if again == "yes":
         to_continue()
-        find_equation()
-        keep_going = ""
-
-
+        # Loop continues naturally
     else:
         break
+
 print()
-# end
 print("Thank you for using the Cubic Calculator")
