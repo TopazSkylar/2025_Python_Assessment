@@ -241,7 +241,14 @@ def find_equation():
             to_continue()
             quad_solver(a,b,c)
             return
-
+        discriminant_check = (18*a*b*c*d - 4*d*b ** 3 + b ** 2 * c ** 2 - 4*a*c ** 3 - 27*a ** 2 * d ** 2)
+        discriminant_check()
+        if discriminant_check < 0:
+            print("This has complex roots")
+        if discriminant_check == 0:
+            print("Three distinct roots")
+        if discriminant_check > 0:
+            print("repeating roots")
         real_roots(a,d)
         # for items in the lists of real roots, insert them into the equation - both negative and positive
         # keep those whose insertion = 0
@@ -351,7 +358,7 @@ def find_equation():
         to_continue()
         print(f"""
 Step 5. Take your x^2 constant to the next column across and add to it the product of
-your previous result and the factor (e.g {a}x{root_1})
+your previous result and the factor (e.g {a}*{root_1})
         """)
         print(calc_table_x)
         print()
@@ -386,7 +393,7 @@ your previous result and the factor (e.g {a}x{root_1})
             final_2 = f"x{root_3:.2f}"
         else:
             final_2 = f"x+{root_3:.2f}"
-        # displays all of the roots after solving
+        # displays all the roots after solving
         print("\rThus, your roots for this cubic are; ")
         print()
         make_statement(f"{display}", "*")
