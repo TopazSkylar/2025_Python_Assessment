@@ -50,7 +50,11 @@ def show_instructions():
     print()
     make_statement("Instructions", "ℹ️")
     print('''
-This is a cubic calculator, you will be prompted to enter integers as values of a, b, c and d
+This is a cubic calculator, 
+You will first be prompted to decide the amount of questions you would like to ask 
+(Due to this being intended for year 13 students there is no way to quit 
+as I expect the question amounts to be reasonable)
+You will be prompted to enter integers as values of a, b, c and d
 This will correspond to the x^3, x^2, x and constant value of the cubic 
 This calculator will not be able to calculate complex roots
 This calculator is intended to walk the user through the steps to solve these cubics 
@@ -160,32 +164,6 @@ def find_factors(value):
 
     return factors
 
-# def real_roots(a,d):
-#     """Does a real root check to make sure that the cubic is possible"""
-#     fact_a = find_factors(a)
-#     fact_d = find_factors(d)
-#     for num1 in fact_d: # for the factors of d divide by each factor of a
-#         for num2 in fact_a:
-#             roots = num1 / num2
-#
-#             rr_raw.append(roots) # append to the first unsorted / containing dupes
-#
-#     # one big list
-#     rr_raw.sort()
-#     # removes dupes
-#     for i in rr_raw:
-#         if i not in rr_final:
-#             rr_final.append(i) # final list without dupes
-#
-#     print("""
-#     Step 0. In order to check if a cubic has complex roots, one must divide all the factors of the value by those of the d value
-#      2 having factors of [1,2] dividing 3 which has factors of [1,3] would have the real roots of 1/1, 1/3, 2/1, 2/3"
-#     and if any of those values substituted make the equation 0, then the equation has real roots
-#     """)
-#     print()
-#     print(f"real roots of this equation = ± {rr_final}")
-#     print()
-
 def find_equation():
     questions_answered = 0
 
@@ -193,10 +171,10 @@ def find_equation():
 
     for q in range(questions_asked):
         while questions_answered < questions_asked:
+            # creates a boundary that automatically ends after answering enough questions
+            question_heading = f"\n🐦‍🔥🐦‍🔥🐦‍🔥 Question {questions_answered + 1} of {questions_asked} 🐦‍🔥🐦‍🔥🐦‍🔥"
 
-            rounds_heading = f"\n🐪🐪🐪 Question {questions_answered + 1} of {questions_asked} 🐪🐪🐪"
-
-            print(rounds_heading)
+            print(question_heading)
 
             ask_a = "what is your a (x^3) value? "
             ask_b = "what is your b (x^2) value? "
@@ -247,53 +225,44 @@ def find_equation():
                     quad_solver(a, b, c)
                     questions_answered += 1
                     continue
-
-                discriminant_check = 18 * a * b * c * d - 4 * d * b ** 3 + b ** 2 * c ** 2 - 4 * a * c ** 3 - 27 * a ** 2 * d ** 2
+                # the discriminant for a cubic will indicate whether there are complex roots
+                discriminant_check = (18 * a * b * c * d - 4 * (b ** 3) * d + (b ** 2) * (c ** 2)
+                                      - 4 * a * (c ** 3) - 27 * (a ** 2) * (d ** 2))
 
                 if discriminant_check > 0:
-                    print(
-                        "Utilising the cubic discriminant equation has these values at > 0, indicating complex roots which cannot be solved using this calculator")
-                    questions_answered += 1
-                    continue
+                    square_num = discriminant_check ** 0.5
+                    if square_num == int(square_num):
+                        print(
+                            """The cubic discriminant equation has found the discriminant at > 0 but is a square number, 
+                            which indicates real roots which can be solved using this calculator"""
+                        )
+                    else:
+                        print(
+                        """The cubic discriminant equation has found the discriminant at > 0 and not a square number, 
+                        indicating complex roots which cannot be solved using this calculator"""
+                        )
+                        questions_answered += 1
+                        continue
+
                 elif discriminant_check == 0:
                     print(
                         "Utilising the cubic discriminant equation has these values at = 0, indicating repeated real roots")
                 elif discriminant_check < 0:
                     print(
-                        "Utilising the cubic discriminant equation has these values at < 0, indicating complex roots which cannot be solved using this calculator")
+                        "Utilising the cubic discriminant equation has these values at < 0, "
+                        "indicating complex roots which cannot be solved using this calculator"
+                    )
                     questions_answered += 1
                     continue
 
                 to_continue()
-
-                # real_roots(a, d)
-                # # for items in the lists of real roots, insert them into the equation - both negative and positive
-                # # keep those whose insertion = 0
-                # for i in rr_final:
-                #     value = a * i ** 3 + b * i ** 2 + c * i + d
-                #     if value == 0:
-                #         rr_count.append(i)
-                # for it in rr_final:
-                #     ite = it * -1
-                #     neg_value = a * ite ** 3 + b * ite ** 2 + c * ite + d
-                #     if neg_value == 0:
-                #         rr_count.append(ite)
-                #
-                # # number of real rational roots found
-                # if len(rr_count) >= 3:
-                #     print("This cubic does not have complex roots and can be solved using this calculator")
-                # else:
-                #     print("This cubic may have complex roots and cannot be solved using this calculator")
-                #     continue
-                #
-                # print()
 
 
                 find_factors(d)
 
                 # information for the user
                 print(f"Step 1. Factors of {d} are ± {find_factors(d)}")
-
+                # due to 1 and -1 being a factor in every integer, they can automatically be the lowest possible common factors
                 root_1 = 0
                 if a * (-1) ** 3 + b * (-1) ** 2 + c * (-1) + d != 0:
                     root_1 = -1
