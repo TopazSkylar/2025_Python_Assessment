@@ -163,11 +163,34 @@ def find_factors(value):
             factors.append(f)
 
     return factors
+def question_checker(question):
+    valid = False
+    while not valid:
+        error = "Please enter an integer greater than 0"
+
+        try:
+
+            # ask user to enter a number
+            response = int(input(question))
+
+            # checks number is more than zero
+            if 1 <= response:
+                return response
+
+            # Outputs error if input is invalid
+            else:
+                print(error)
+                print()
+
+        except ValueError:
+            print(error)
+            print()
+    return None
 
 def find_equation():
     questions_answered = 0
 
-    questions_asked = num_check("How many questions would you like? ")
+    questions_asked = question_checker("How many questions would you like? ")
 
     for q in range(questions_asked):
         while questions_answered < questions_asked:
@@ -256,7 +279,6 @@ def find_equation():
                     continue
 
                 to_continue()
-
 
                 find_factors(d)
 
@@ -399,14 +421,6 @@ def find_equation():
                 rr_final.clear()
                 rr_count.clear()
                 questions_answered += 1
-
-
-
-
-    """Finds and solves the equation for the quadratic"""
-    # asks for the user input for their equation
-
-
 
 # main routine goes here
 
